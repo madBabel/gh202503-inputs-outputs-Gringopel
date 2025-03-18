@@ -1,0 +1,50 @@
+name: Inputs and Outputs
+
+on:
+    workflow_dispatch: 
+        inputs:
+            dry-run:
+                description: Skip deployment and only print build output
+                type: boolean
+                default: false
+
+            target:
+                description: Which environment the workflow will target
+                type: environment
+                required: true
+
+            tag:
+                description: Release from which to build and deploy
+                type: choice
+                options:
+                    - v1
+                    - v2
+                    - v3
+                default: v3
+            
+            build-status:
+                description: Choose the build status for the demo
+                type: choice
+                options:
+                    - success
+                    - failure
+                default: success
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        outputs:
+            build-status: ${{ steps.build.outputs.status }}
+            tag: ${{ inputs.tag }}
+        steps:
+            - name: Print GITHUB_OUTPUT path
+              run: echo ${{ env.GITHUB_OUTPUT }}
+            
+            - name: Build
+              id: build
+              run: |
+                echo tag=${{ inputs.tag}} >> ${{ env.GITHUB_OUTPUT }}
+                echo status=${{ inputs.build-status}}
+
+    
+    
