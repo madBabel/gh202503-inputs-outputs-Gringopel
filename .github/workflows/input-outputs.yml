@@ -38,13 +38,14 @@ jobs:
             tag: ${{ inputs.tag }}
         steps:
             - name: Print GITHUB_OUTPUT path
-              run: echo ${{ env.GITHUB_OUTPUT }}
+              run: echo $GITHUB_OUTPUT
             
             - name: Build
               id: build
               run: |
-                echo tag=${{ inputs.tag}} >> ${{ env.GITHUB_OUTPUT }}
-                echo status=${{ inputs.build-status}}
+                echo tag=${{ inputs.tag}} >> $GITHUB_OUTPUT
+                echo status=${{ inputs.build-status}} >> $GITHUB_OUTPUT
+                echo $GITHUB_OUTPUT
 
     
     
