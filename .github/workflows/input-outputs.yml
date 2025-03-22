@@ -52,7 +52,7 @@ jobs:
         if: needs.build.outputs.build-status == 'success' && !inputs.dry-run
         steps:
             - name: Deploy
-              run: echo Deploying ${{ inputs.target }} to ${{ inputs.tag }}
+              run: echo Deploying ${{ inputs.target }} to $GITHUB_OUTPUT
 
     
     
